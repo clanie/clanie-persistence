@@ -23,6 +23,7 @@ import javax.persistence.Version;
 
 import dk.clanie.core.BaseClass;
 
+@SuppressWarnings("serial")
 @MappedSuperclass
 public abstract class BasePersistentClass extends BaseClass {
 
