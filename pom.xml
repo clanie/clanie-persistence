@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>dk.clanie</groupId>
 		<artifactId>clanie-parent-pom</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 
 	<artifactId>clanie-persistence</artifactId>
@@ -17,17 +17,11 @@
 	<description>Persistence Classes</description>
 	<inceptionYear>2008</inceptionYear>
 
-	<url>
-		http://mvn.cn-consult.dk/release-site/${project.artifactId}
-	</url>
+	<url>http://mvn.cn-consult.dk/release-site/${project.artifactId}</url>
 
 	<scm>
-		<connection>
-			scm:svn:http://svn.cn-consult.dk:7000/svn/persistence/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:http://svn.cn-consult.dk:7000/svn/persistence/trunk
-		</developerConnection>
+		<connection>scm:git:ssh://git/var/cache/git/libs/clanie-persistence.git</connection>
+		<url>http://git.cn-consult.dk/?p=libs/clanie-persistence.git</url>
 	</scm>
 
 	<distributionManagement>
