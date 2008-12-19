@@ -17,6 +17,8 @@
  */
 package dk.clanie.persistence;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -30,7 +32,7 @@ public abstract class BasePersistentClass extends BaseClass {
 	private Long id;
 	private Long version;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
 		return id;
 	}
