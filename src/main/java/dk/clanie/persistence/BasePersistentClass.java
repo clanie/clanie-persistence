@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2007, 2008, Claus Nielsen, cn@cn-consult.dk
+ * Copyright (C) 2007-2009, Claus Nielsen, cn@cn-consult.dk
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,23 @@ public abstract class BasePersistentClass extends BaseClass {
 
 	private Long id;
 	private Long version;
+
+	/**
+	 * Default constructor.
+	 */
+	public BasePersistentClass() {
+	}
+
+	/**
+	 * Full constructor.
+	 *
+	 * @param id
+	 * @param version
+	 */
+	protected BasePersistentClass(Long id, Long version) {
+		this.id = id;
+		this.version = version;
+	}
 
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long getId() {
