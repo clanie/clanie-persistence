@@ -34,9 +34,9 @@ import org.hibernate.usertype.EnhancedUserType;
  *
  * @author Claus Nielsen
  */
-public class PersistentURL implements EnhancedUserType
+public class UrlUserType implements EnhancedUserType
 {
-	public final static PersistentURL INSTANCE = new PersistentURL();
+	public final static UrlUserType INSTANCE = new UrlUserType();
 
 	private static final int[] SQL_TYPES = new int[]
     {
