@@ -20,7 +20,7 @@ package dk.clanie.sql;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Required;
 
-public class SqlDialectFactoryBean implements FactoryBean {
+public class SqlDialectFactoryBean implements FactoryBean<SqlDialect> {
 
 	private SqlDialect sqlDialect;
 	
@@ -30,7 +30,7 @@ public class SqlDialectFactoryBean implements FactoryBean {
 	}
 
 	@Override
-	public Object getObject() throws Exception {
+	public SqlDialect getObject() throws Exception {
 		return sqlDialect;
 	}
 
