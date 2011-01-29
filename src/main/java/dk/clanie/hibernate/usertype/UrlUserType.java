@@ -31,58 +31,49 @@ import org.hibernate.usertype.EnhancedUserType;
 
 /**
  * Hibernate UserType for {@link java.net.URL}.
- *
+ * 
  * @author Claus Nielsen
  */
-public class UrlUserType implements EnhancedUserType
-{
+public class UrlUserType implements EnhancedUserType {
+
 	public final static UrlUserType INSTANCE = new UrlUserType();
 
-	private static final int[] SQL_TYPES = new int[]
-    {
-        Types.VARCHAR,
-    };
+	private static final int[] SQL_TYPES = new int[] {
+			Types.VARCHAR,
+	};
 
-    public int[] sqlTypes()
-    {
-        return SQL_TYPES;
-    }
+	public int[] sqlTypes() {
+		return SQL_TYPES;
+	}
 
-    @SuppressWarnings("unchecked")
-	public Class returnedClass()
-    {
-        return URL.class;
-    }
+	@SuppressWarnings("rawtypes")
+	public Class returnedClass() {
+		return URL.class;
+	}
 
-    public boolean equals(Object x, Object y) throws HibernateException
-	{
-        if (x == y)
-        {
-            return true;
-        }
-        if (x == null || y == null)
-        {
-            return false;
-        }
-        URL dtx = (URL) x;
-        URL dty = (URL) y;
+	public boolean equals(Object x, Object y) throws HibernateException {
+		if (x == y) {
+			return true;
+		}
+		if (x == null || y == null) {
+			return false;
+		}
+		URL dtx = (URL) x;
+		URL dty = (URL) y;
 
-        return dtx.equals(dty);
-    }
+		return dtx.equals(dty);
+	}
 
-    public int hashCode(Object object) throws HibernateException
-    {
-        return object.hashCode();
-    }
+	public int hashCode(Object object) throws HibernateException {
+		return object.hashCode();
+	}
 
-    public Object nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException
-	{
+	public Object nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
 		return nullSafeGet(resultSet, strings[0]);
 
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String string) throws SQLException, HibernateException
-	{
+	public Object nullSafeGet(ResultSet resultSet, String string) throws SQLException, HibernateException {
 		Object timestamp = Hibernate.STRING.nullSafeGet(resultSet, string);
 		if (timestamp == null) {
 			return null;
@@ -95,9 +86,7 @@ public class UrlUserType implements EnhancedUserType
 		}
 	}
 
-
-	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException
-	{
+	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
 		if (value == null) {
 			Hibernate.STRING.nullSafeSet(preparedStatement, null, index);
 		} else {
@@ -107,50 +96,42 @@ public class UrlUserType implements EnhancedUserType
 		}
 	}
 
-    public Object deepCopy(Object value) throws HibernateException
-    {
-        if (value == null) {
-            return null;
-        }
-        try {
+	public Object deepCopy(Object value) throws HibernateException {
+		if (value == null) {
+			return null;
+		}
+		try {
 			return new URL(value.toString());
 		} catch (MalformedURLException e) {
 			throw new HibernateException("URL <-> String mapping error.", e);
 		}
-    }
+	}
 
-    public boolean isMutable()
-    {
-        return false;
-    }
+	public boolean isMutable() {
+		return false;
+	}
 
-    public Serializable disassemble(Object value) throws HibernateException
-    {
-        return (Serializable) value;
-    }
+	public Serializable disassemble(Object value) throws HibernateException {
+		return (Serializable) value;
+	}
 
-    public Object assemble(Serializable cached, Object value) throws HibernateException
-    {
-        return cached;
-    }
+	public Object assemble(Serializable cached, Object value) throws HibernateException {
+		return cached;
+	}
 
-    public Object replace(Object original, Object target, Object owner) throws HibernateException
-    {
-        return original;
-    }
+	public Object replace(Object original, Object target, Object owner) throws HibernateException {
+		return original;
+	}
 
-	public String objectToSQLString(Object object)
-	{
+	public String objectToSQLString(Object object) {
 		throw new UnsupportedOperationException();
 	}
 
-	public String toXMLString(Object object)
-	{
+	public String toXMLString(Object object) {
 		return object.toString();
 	}
 
-	public Object fromXMLString(String string)
-	{
+	public Object fromXMLString(String string) {
 		try {
 			return new URL(string);
 		} catch (MalformedURLException e) {
