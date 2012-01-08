@@ -38,6 +38,7 @@
 		<dependency>
 			<groupId>dk.clanie</groupId>
 			<artifactId>clanie-core</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<!-- ORM and Database -->
