@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2009, Claus Nielsen, cn@cn-consult.dk
+ * Copyright (C) 2009, 2012, Claus Nielsen, cn@cn-consult.dk
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
  */
 package dk.clanie.hibernate.usertype;
 
+import static org.hibernate.type.StandardBasicTypes.STRING;
+
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,8 +27,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.EnhancedUserType;
 
 /**
@@ -51,6 +53,7 @@ public class UrlUserType implements EnhancedUserType {
 		return URL.class;
 	}
 
+	@Override
 	public boolean equals(Object x, Object y) throws HibernateException {
 		if (x == y) {
 			return true;
@@ -64,38 +67,36 @@ public class UrlUserType implements EnhancedUserType {
 		return dtx.equals(dty);
 	}
 
+	@Override
 	public int hashCode(Object object) throws HibernateException {
 		return object.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
-		return nullSafeGet(resultSet, strings[0]);
-
-	}
-
-	public Object nullSafeGet(ResultSet resultSet, String string) throws SQLException, HibernateException {
-		Object timestamp = Hibernate.STRING.nullSafeGet(resultSet, string);
-		if (timestamp == null) {
+	
+	@Override
+	public Object nullSafeGet(ResultSet rs, String[] names,
+			SessionImplementor session, Object owner)
+			throws HibernateException, SQLException {
+		Object stringValue = STRING.nullSafeGet(rs, names, session, owner);
+		if (stringValue == null) {
 			return null;
 		}
 
 		try {
-			return new URL((String) timestamp);
+			return new URL((String) stringValue);
 		} catch (MalformedURLException e) {
 			throw new HibernateException("URL <-> String mapping error.", e);
 		}
 	}
 
-	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
-		if (value == null) {
-			Hibernate.STRING.nullSafeSet(preparedStatement, null, index);
-		} else {
-			URL url = (URL) value;
-
-			Hibernate.STRING.nullSafeSet(preparedStatement, url.toString(), index);
-		}
+	@Override
+	public void nullSafeSet(PreparedStatement st, Object value, int index,
+			SessionImplementor session) throws HibernateException, SQLException {
+		String stringValue = value == null ? null : value.toString();
+		STRING.nullSafeSet(st, stringValue, index, session);
 	}
 
+	@Override
 	public Object deepCopy(Object value) throws HibernateException {
 		if (value == null) {
 			return null;
@@ -107,30 +108,37 @@ public class UrlUserType implements EnhancedUserType {
 		}
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
+	@Override
 	public Serializable disassemble(Object value) throws HibernateException {
 		return (Serializable) value;
 	}
 
+	@Override
 	public Object assemble(Serializable cached, Object value) throws HibernateException {
 		return cached;
 	}
 
+	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
 		return original;
 	}
 
+	@Override
 	public String objectToSQLString(Object object) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String toXMLString(Object object) {
 		return object.toString();
 	}
 
+	@Override
 	public Object fromXMLString(String string) {
 		try {
 			return new URL(string);
@@ -138,4 +146,5 @@ public class UrlUserType implements EnhancedUserType {
 			throw new HibernateException("URL <-> String mapping error.", e);
 		}
 	}
+
 }
