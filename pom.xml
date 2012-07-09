@@ -23,17 +23,9 @@
 		<url>https://github.com/clanie/clanie-aspects</url>
 	</scm>
 
-<!--
-	<distributionManagement>
-		<site>
-			<id>repository.local.release-site</id>
-			<name>CN Consult Website</name>
-			<url>
-				scpexe://mvn.cn-consult.dk/var/lib/mvn/release-site/${project.artifactId}/${project.version}
-			</url>
-		</site>
-	</distributionManagement>
--->
+	<!-- <distributionManagement> <site> <id>repository.local.release-site</id> 
+		<name>CN Consult Website</name> <url> scpexe://mvn.cn-consult.dk/var/lib/mvn/release-site/${project.artifactId}/${project.version} 
+		</url> </site> </distributionManagement> -->
 
 	<dependencies>
 
@@ -45,8 +37,8 @@
 
 		<!-- ORM and Database -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>javax.persistence</artifactId>
 		</dependency>
 
 		<!-- Test dependencies -->
